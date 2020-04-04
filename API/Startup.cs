@@ -13,6 +13,10 @@ using Microsoft.Extensions.Logging;
 
 namespace API
 {
+    using Microsoft.EntityFrameworkCore;
+
+    using Persistence;
+
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -25,7 +29,13 @@ namespace API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<DataContext>(
+                opt =>
+                {
+                    opt.UseSqlite(Configuration.GetConnectionString("DefaultConnection"));
+                });
             services.AddControllers();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
