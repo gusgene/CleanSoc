@@ -13,7 +13,7 @@ namespace Domain
     {
         Task<List<Activity>> GetActivities();
         Task<Activity> GetActivity(Guid id);
-        Task<int> Add(Activity activity);
+        Task<bool> Add(Activity activity);
         Task<bool> Update(Activity activity);
     }
 }

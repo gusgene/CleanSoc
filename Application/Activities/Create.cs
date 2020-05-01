@@ -53,7 +53,7 @@ namespace Application.Activities
                     Venue = request.Venue
                 };
 
-                var success = await _repository.Add(activity) >0;
+                var success = await _repository.Add(activity);
                 if (success) 
                     return Unit.Value;
                 throw new Exception();

@@ -6,7 +6,6 @@ namespace Persistence
 {
     using System;
     using System.Collections.Generic;
-    using System.Threading;
     using System.Threading.Tasks;
 
     using Domain;
@@ -34,10 +33,10 @@ namespace Persistence
             return activity;
         }
 
-        public async Task<int> Add(Activity activity)
+        public async Task<bool> Add(Activity activity)
         {
             _context.Activities.Add(activity);
-            var result =  await _context.SaveChangesAsync();
+            var result =  await _context.SaveChangesAsync() > 0;
             return result;
         }
 
