@@ -13,6 +13,12 @@ using Microsoft.Extensions.Logging;
 
 namespace API
 {
+    using Application.Activities;
+
+    using Domain;
+
+    using MediatR;
+
     using Microsoft.EntityFrameworkCore;
 
     using Persistence;
@@ -34,8 +40,18 @@ namespace API
                 {
                     opt.UseSqlite(Configuration.GetConnectionString("DefaultConnection"));
                 });
+            services.AddCors(
+                opt =>
+                {
+                    opt.AddPolicy("CorsPolicy",
+                        policy =>
+                        {
+                            policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:3000");
+                        });
+                });
             services.AddControllers();
-            
+            services.AddMediatR(typeof(List.Handler).Assembly);
+            services.AddScoped<IActivitiesRepository, ActivitiesRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -47,7 +63,7 @@ namespace API
             }
 
             //app.UseHttpsRedirection();
-
+            app.UseCors("CorsPolicy");
             app.UseRouting();
 
             app.UseAuthorization();
