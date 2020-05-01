@@ -40,5 +40,11 @@ namespace Persistence
             var result =  await _context.SaveChangesAsync();
             return result;
         }
+
+        public async Task<bool> Update(Activity activity)
+        {
+            _context.Activities.Update(activity);
+            return await _context.SaveChangesAsync() > 0;
+        }
     }
 }
