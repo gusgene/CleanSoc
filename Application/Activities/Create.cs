@@ -14,8 +14,12 @@ namespace Application.Activities
 
     public class Create
     {
+        #region Nested type: Command
+
         public class Command : IRequest
         {
+            #region Properties
+
             public Guid Id { get; set; }
 
             public string Title { get; set; }
@@ -29,16 +33,32 @@ namespace Application.Activities
             public string City { get; set; }
 
             public string Venue { get; set; }
+
+            #endregion
         }
-        
+
+        #endregion
+
+        #region Nested type: Handler
+
         public class Handler : IRequestHandler<Command>
         {
+            #region Fields
+
             private readonly IActivitiesRepository _repository;
+
+            #endregion
+
+            #region Constructors
 
             public Handler(IActivitiesRepository repository)
             {
                 _repository = repository ?? throw new ArgumentNullException(nameof(repository));
             }
+
+            #endregion
+
+            #region Methods
 
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
@@ -53,11 +73,15 @@ namespace Application.Activities
                     Venue = request.Venue
                 };
 
-                var success = await _repository.Add(activity);
-                if (success) 
+                bool success = await _repository.Add(activity);
+                if (success)
                     return Unit.Value;
                 throw new Exception();
             }
+
+            #endregion
         }
+
+        #endregion
     }
 }

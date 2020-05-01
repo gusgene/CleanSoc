@@ -1,15 +1,18 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace Persistence.Migrations
+﻿namespace Persistence.Migrations
 {
+    using System;
+
+    using Microsoft.EntityFrameworkCore.Migrations;
+
     public partial class ActivityEntityAdded : Migration
     {
+        #region Methods
+
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Activities",
-                columns: table => new
+                "Activities",
+                table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
                     Title = table.Column<string>(nullable: true),
@@ -27,8 +30,9 @@ namespace Persistence.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "Activities");
+            migrationBuilder.DropTable("Activities");
         }
+
+        #endregion
     }
 }

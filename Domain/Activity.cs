@@ -8,6 +8,8 @@ namespace Domain
 
     public class Activity
     {
+        #region Properties
+
         public Guid Id { get; set; }
 
         public string Title { get; set; }
@@ -21,5 +23,7 @@ namespace Domain
         public string City { get; set; }
 
         public string Venue { get; set; }
+
+        #endregion
     }
 }

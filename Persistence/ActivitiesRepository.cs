@@ -14,16 +14,26 @@ namespace Persistence
 
     public class ActivitiesRepository : IActivitiesRepository
     {
-        private DataContext _context;
+        #region Fields
+
+        private readonly DataContext _context;
+
+        #endregion
+
+        #region Constructors
 
         public ActivitiesRepository(DataContext context)
         {
             _context = context;
         }
 
+        #endregion
+
+        #region Methods
+
         public async Task<List<Activity>> GetActivities()
         {
-            var activities = await _context.Activities.ToListAsync();
+            List<Activity> activities = await _context.Activities.ToListAsync();
             return activities;
         }
 
@@ -36,7 +46,7 @@ namespace Persistence
         public async Task<bool> Add(Activity activity)
         {
             _context.Activities.Add(activity);
-            var result =  await _context.SaveChangesAsync() > 0;
+            bool result = await _context.SaveChangesAsync() > 0;
             return result;
         }
 
@@ -45,5 +55,13 @@ namespace Persistence
             _context.Activities.Update(activity);
             return await _context.SaveChangesAsync() > 0;
         }
+
+        public async Task<bool> Delete(Activity activity)
+        {
+            _context.Activities.Remove(activity);
+            return await _context.SaveChangesAsync() > 0;
+        }
+
+        #endregion
     }
 }
