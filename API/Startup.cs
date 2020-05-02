@@ -53,7 +53,7 @@ namespace API
                         });
                 });
             services.AddControllers();
-            services.AddMediatR(typeof(List.Handler).Assembly);
+            services.AddMediatR(typeof(ActivitiesListQueryHandler).Assembly);
             services.AddScoped<IActivitiesRepository, ActivitiesRepository>();
         }
 
