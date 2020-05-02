@@ -1,8 +1,11 @@
 namespace API
 {
     using Application.Activities;
+    using Application.Activities.Validators;
 
     using Domain;
+
+    using FluentValidation.AspNetCore;
 
     using MediatR;
 
@@ -52,7 +55,12 @@ namespace API
                             policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:3000");
                         });
                 });
-            services.AddControllers();
+            services.AddControllers()
+                .AddFluentValidation(
+                    cfg =>
+                    {
+                        cfg.RegisterValidatorsFromAssemblyContaining<CreateCommandValidator>();
+                    });
             services.AddMediatR(typeof(ActivitiesListQueryHandler).Assembly);
             services.AddScoped<IActivitiesRepository, ActivitiesRepository>();
         }
