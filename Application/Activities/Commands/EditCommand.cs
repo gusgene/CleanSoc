@@ -2,14 +2,14 @@
 // Author: Evgeniy Gusev
 // ---------------------------------------------------------------------------------------------------------------------------------------------------
 
-namespace Domain
+namespace Application.Activities.Commands
 {
     using System;
 
-    public class Activity
-    {
-        #region Properties
+    using MediatR;
 
+    public class EditCommand : IRequest
+    {
         public Guid Id { get; set; }
 
         public string Title { get; set; }
@@ -18,12 +18,10 @@ namespace Domain
 
         public string Category { get; set; }
 
-        public DateTime Date { get; set; }
+        public DateTime? Date { get; set; }
 
         public string City { get; set; }
 
         public string Venue { get; set; }
-
-        #endregion
     }
 }

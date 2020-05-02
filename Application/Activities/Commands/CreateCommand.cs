@@ -2,16 +2,16 @@
 // Author: Evgeniy Gusev
 // ---------------------------------------------------------------------------------------------------------------------------------------------------
 
-namespace Domain
+namespace Application.Activities.Commands
 {
     using System;
 
-    public class Activity
+    using MediatR;
+
+    public class CreateCommand : IRequest<Unit>
     {
-        #region Properties
-
         public Guid Id { get; set; }
-
+ 
         public string Title { get; set; }
 
         public string Description { get; set; }
@@ -23,7 +23,5 @@ namespace Domain
         public string City { get; set; }
 
         public string Venue { get; set; }
-
-        #endregion
     }
 }

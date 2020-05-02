@@ -1,17 +1,18 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace Persistence.Migrations
+﻿namespace Persistence.Migrations
 {
+    using Microsoft.EntityFrameworkCore.Migrations;
+
     public partial class InitialCreate : Migration
     {
+        #region Methods
+
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Values",
-                columns: table => new
+                "Values",
+                table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                    Id = table.Column<int>(nullable: false).Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -22,8 +23,9 @@ namespace Persistence.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "Values");
+            migrationBuilder.DropTable("Values");
         }
+
+        #endregion
     }
 }

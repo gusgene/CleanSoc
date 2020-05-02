@@ -5,7 +5,6 @@
 namespace API.Controllers
 {
     using System.Collections.Generic;
-    using System.Linq;
     using System.Threading.Tasks;
 
     using Domain;
@@ -19,18 +18,28 @@ namespace API.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
+        #region Fields
+
         private readonly DataContext _context;
+
+        #endregion
+
+        #region Constructors
 
         public ValuesController(DataContext context)
         {
             _context = context;
         }
 
+        #endregion
+
+        #region Methods
+
         // GET api/values
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Value>>> Get()
         {
-            var values = await _context.Values.ToListAsync();
+            List<Value> values = await _context.Values.ToListAsync();
             return Ok(values);
         }
 
@@ -58,5 +67,7 @@ namespace API.Controllers
         public void Delete(int id)
         {
         }
+
+        #endregion
     }
 }

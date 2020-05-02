@@ -10,14 +10,24 @@ namespace Persistence
 
     public class DataContext : DbContext
     {
-        public DataContext(DbContextOptions options) : base(options)
-        {
-            
-        }
-        
+        #region Properties
+
         public DbSet<Value> Values { get; set; }
-        
+
         public DbSet<Activity> Activities { get; set; }
+
+        #endregion
+
+        #region Constructors
+
+        public DataContext(DbContextOptions options)
+            : base(options)
+        {
+        }
+
+        #endregion
+
+        #region Methods
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -48,5 +58,7 @@ namespace Persistence
                     Name = "Value 105"
                 });
         }
+
+        #endregion
     }
 }
