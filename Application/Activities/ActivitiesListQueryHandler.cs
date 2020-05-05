@@ -42,10 +42,4 @@ namespace Application.Activities
 
         #endregion
     }
-
-    #region Nested type: ActivitiesListQuery
-
-    
-
-    #endregion
 }
