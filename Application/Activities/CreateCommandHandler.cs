@@ -49,7 +49,7 @@ namespace Application.Activities
             bool success = await _repository.Add(activity);
             if (success)
                 return Unit.Value;
-            throw new Exception();
+            throw new Exception("Save not impossible");
         }
 
         #endregion
