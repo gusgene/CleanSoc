@@ -5,12 +5,15 @@
 namespace Application.Activities
 {
     using System;
+    using System.Net;
     using System.Threading;
     using System.Threading.Tasks;
 
     using Commands;
 
     using Domain;
+
+    using Exceptions;
 
     using MediatR;
 
@@ -36,8 +39,9 @@ namespace Application.Activities
         public async Task<Unit> Handle(EditCommand request, CancellationToken cancellationToken)
         {
             Activity activity = await _repository.GetActivity(request.Id);
+            
             if (activity == null)
-                throw new Exception("Could not find Activity");
+                throw new RestException(HttpStatusCode.NotFound, new{activity = "Not Found"});
 
             activity.Title = request.Title ?? activity.Title;
             activity.Description = request.Description ?? activity.Description;

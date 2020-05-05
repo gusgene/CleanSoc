@@ -5,12 +5,15 @@
 namespace Application.Activities
 {
     using System;
+    using System.Net;
     using System.Threading;
     using System.Threading.Tasks;
 
     using Commands;
 
     using Domain;
+
+    using Exceptions;
 
     using MediatR;
 
@@ -38,7 +41,7 @@ namespace Application.Activities
             Activity activity = await _repository.GetActivity(request.Id);
 
             if (activity == null)
-                throw new Exception("Could not find activity");
+                throw new RestException(HttpStatusCode.NotFound, new{activity = "Not Found"});
 
             bool success = await _repository.Delete(activity);
             if (success) return Unit.Value;

@@ -5,10 +5,13 @@
 namespace Application.Activities
 {
     using System;
+    using System.Net;
     using System.Threading;
     using System.Threading.Tasks;
 
     using Domain;
+
+    using Exceptions;
 
     using MediatR;
 
@@ -33,9 +36,13 @@ namespace Application.Activities
 
         #region Methods
 
-        public Task<Activity> Handle(DetailsQuery request, CancellationToken cancellationToken)
+        public async Task<Activity> Handle(DetailsQuery request, CancellationToken cancellationToken)
         {
-            Task<Activity> activity = _repository.GetActivity(request.Id);
+            var activity = await _repository.GetActivity(request.Id);
+            
+            if (activity == null)
+                throw new RestException(HttpStatusCode.NotFound, new{activity = "Not Found"});
+            
             return activity;
         }
 
