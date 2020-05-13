@@ -10,8 +10,10 @@ namespace API.Controllers
 
     using Domain;
 
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
+    [AllowAnonymous]
     public class UserController : BaseController
     {
         [HttpPost("login")]
