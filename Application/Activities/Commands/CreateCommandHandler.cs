@@ -2,13 +2,11 @@
 // Author: Evgeniy Gusev
 // ---------------------------------------------------------------------------------------------------------------------------------------------------
 
-namespace Application.Activities
+namespace Application.Activities.Commands
 {
     using System;
     using System.Threading;
     using System.Threading.Tasks;
-
-    using Commands;
 
     using Domain;
 

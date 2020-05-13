@@ -2,20 +2,20 @@
 // Author: Evgeniy Gusev
 // ---------------------------------------------------------------------------------------------------------------------------------------------------
 
-namespace Application.Activities
+namespace Application.Activities.Queries
 {
     using System;
-    using System.Collections.Generic;
+    using System.Net;
     using System.Threading;
     using System.Threading.Tasks;
 
     using Domain;
 
+    using Exceptions;
+
     using MediatR;
 
-    using Queries;
-
-    public class ActivitiesListQueryHandler : IRequestHandler<ActivitiesListQuery, List<Activity>>
+    public class DetailsQueryHandler : IRequestHandler<DetailsQuery, Activity>
     {
         #region Fields
 
@@ -25,7 +25,7 @@ namespace Application.Activities
 
         #region Constructors
 
-        public ActivitiesListQueryHandler(IActivitiesRepository repository)
+        public DetailsQueryHandler(IActivitiesRepository repository)
         {
             _repository = repository ?? throw new ArgumentNullException(nameof(repository));
         }
@@ -34,10 +34,14 @@ namespace Application.Activities
 
         #region Methods
 
-        public Task<List<Activity>> Handle(ActivitiesListQuery request, CancellationToken cancellationToken)
+        public async Task<Activity> Handle(DetailsQuery request, CancellationToken cancellationToken)
         {
-            Task<List<Activity>> activities = _repository.GetActivities();
-            return activities;
+            var activity = await _repository.GetActivity(request.Id);
+            
+            if (activity == null)
+                throw new RestException(HttpStatusCode.NotFound, new{activity = "Not Found"});
+            
+            return activity;
         }
 
         #endregion

@@ -6,9 +6,10 @@ namespace Persistence
 {
     using Domain;
 
+    using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
 
-    public class DataContext : DbContext
+    public class DataContext : IdentityDbContext<AppUser>
     {
         #region Properties
 
@@ -31,6 +32,8 @@ namespace Persistence
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+            
             modelBuilder.Entity<Value>().HasData(
                 new Value
                 {

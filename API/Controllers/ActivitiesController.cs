@@ -18,37 +18,20 @@ namespace API.Controllers
 
     using Microsoft.AspNetCore.Mvc;
 
-    [Route("api/[controller]")]
-    [ApiController]
-    public class ActivitiesController : ControllerBase
+   public class ActivitiesController : BaseController
     {
-        #region Fields
-
-        private readonly IMediator _mediator;
-
-        #endregion
-
-        #region Constructors
-
-        public ActivitiesController(IMediator mediator)
-        {
-            _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
-        }
-
-        #endregion
-
         #region Methods
 
         [HttpGet]
         public async Task<ActionResult<List<Activity>>> List()
         {
-            return await _mediator.Send(new ActivitiesListQuery());
+            return await Mediator.Send(new ActivitiesListQuery());
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Activity>> Details(Guid id)
         {
-            return await _mediator.Send(
+            return await Mediator.Send(
                        new DetailsQuery
                        {
                            Id = id
@@ -58,20 +41,20 @@ namespace API.Controllers
         [HttpPost]
         public async Task<ActionResult<Unit>> Create(CreateCommand command)
         {
-            return await _mediator.Send(command);
+            return await Mediator.Send(command);
         }
 
         [HttpPut("{id}")]
         public async Task<ActionResult<Unit>> Edit(Guid id, EditCommand command)
         {
             command.Id = id;
-            return await _mediator.Send(command);
+            return await Mediator.Send(command);
         }
 
         [HttpDelete("{id}")]
         public async Task<ActionResult<Unit>> Delete(Guid id)
         {
-            return await _mediator.Send(
+            return await Mediator.Send(
                        new DeleteCommand
                        {
                            Id = id
