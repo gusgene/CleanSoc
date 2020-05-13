@@ -2,13 +2,11 @@
 // Author: Evgeniy Gusev
 // ---------------------------------------------------------------------------------------------------------------------------------------------------
 
-namespace Application.Activities
+namespace Application.Activities.Commands
 {
     using System;
     using System.Threading;
     using System.Threading.Tasks;
-
-    using Commands;
 
     using Domain;
 
@@ -49,7 +47,7 @@ namespace Application.Activities
             bool success = await _repository.Add(activity);
             if (success)
                 return Unit.Value;
-            throw new Exception();
+            throw new Exception("Save not impossible");
         }
 
         #endregion

@@ -2,14 +2,12 @@
 // Author: Evgeniy Gusev
 // ---------------------------------------------------------------------------------------------------------------------------------------------------
 
-namespace Application.Activities
+namespace Application.Activities.Commands
 {
     using System;
     using System.Net;
     using System.Threading;
     using System.Threading.Tasks;
-
-    using Commands;
 
     using Domain;
 
@@ -17,7 +15,7 @@ namespace Application.Activities
 
     using MediatR;
 
-    public class EditCommandHandler : IRequestHandler<EditCommand>
+    public class DeleteCommandHandler : IRequestHandler<DeleteCommand>
     {
         #region Fields
 
@@ -27,7 +25,7 @@ namespace Application.Activities
 
         #region Constructors
 
-        public EditCommandHandler(IActivitiesRepository repository)
+        public DeleteCommandHandler(IActivitiesRepository repository)
         {
             _repository = repository ?? throw new ArgumentNullException(nameof(repository));
         }
@@ -36,25 +34,17 @@ namespace Application.Activities
 
         #region Methods
 
-        public async Task<Unit> Handle(EditCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(DeleteCommand request, CancellationToken cancellationToken)
         {
             Activity activity = await _repository.GetActivity(request.Id);
-            
+
             if (activity == null)
                 throw new RestException(HttpStatusCode.NotFound, new{activity = "Not Found"});
 
-            activity.Title = request.Title ?? activity.Title;
-            activity.Description = request.Description ?? activity.Description;
-            activity.Category = request.Category ?? activity.Category;
-            activity.Date = request.Date ?? activity.Date;
-            activity.City = request.City ?? activity.City;
-            activity.Venue = request.Venue ?? activity.Venue;
+            bool success = await _repository.Delete(activity);
+            if (success) return Unit.Value;
 
-            bool success = await _repository.Update(activity);
-            if (success)
-                return Unit.Value;
-
-            throw new Exception("Problem With Saving");
+            throw new Exception("Problem with saving changes");
         }
 
         #endregion

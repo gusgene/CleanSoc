@@ -7,15 +7,51 @@ namespace Persistence
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
 
     using Domain;
+
+    using Microsoft.AspNetCore.Identity;
 
     public class Seed
     {
         #region Methods
 
-        public static void SeedData(DataContext context)
+        public static async Task SeedData(DataContext context, UserManager<AppUser> userManager)
         {
+            if (!userManager.Users.Any())
+            {
+                var users = new List<AppUser>
+                {
+                    new AppUser
+                    {
+                        DisplayName = "Eugene",
+                        UserName = "eugene",
+                        Email = "eugene@test.com"
+                    },
+                    new AppUser
+                    {
+                        DisplayName = "Jane",
+                        UserName = "jane",
+                        Email = "jane@test.com"
+                    },
+                    new AppUser
+                    {
+                        DisplayName = "Mark",
+                        UserName = "mark",
+                        Email = "mark@test.com"
+                    }
+                };
+                
+                foreach (var user in users)
+                {
+                    await userManager.CreateAsync(user, "Pa$$w0rd");
+                }
+                
+            }
+
+            
+            
             if (!context.Activities.Any())
             {
                 var activities = new List<Activity>
@@ -112,9 +148,10 @@ namespace Persistence
                     }
                 };
 
-                context.Activities.AddRange(activities);
-                context.SaveChanges();
+                await context.Activities.AddRangeAsync(activities);
+                await context.SaveChangesAsync();
             }
+            
         }
 
         #endregion
