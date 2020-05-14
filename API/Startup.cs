@@ -8,6 +8,7 @@ namespace API
     using Application.Activities.Validators;
 
     using Domain;
+    using Domain.Repositories;
 
     using FluentValidation.AspNetCore;
 
@@ -30,6 +31,7 @@ namespace API
     using Middleware;
 
     using Persistence;
+    using Persistence.Repositories;
 
     public class Startup
     {
@@ -81,6 +83,7 @@ namespace API
                     });
             services.AddMediatR(typeof(ActivitiesListQueryHandler).Assembly);
             services.AddScoped<IActivitiesRepository, ActivitiesRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
 
             var builder = services.AddIdentityCore<AppUser>();
             var identityBuilder = new IdentityBuilder(builder.UserType, builder.Services);

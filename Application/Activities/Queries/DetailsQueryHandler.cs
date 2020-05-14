@@ -10,6 +10,7 @@ namespace Application.Activities.Queries
     using System.Threading.Tasks;
 
     using Domain;
+    using Domain.Repositories;
 
     using Exceptions;
 

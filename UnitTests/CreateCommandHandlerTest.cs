@@ -6,14 +6,12 @@ using NUnit.Framework;
 
 namespace UnitTests
 {
-    using System;
     using System.Threading;
     using System.Threading.Tasks;
 
-    using Application.Activities;
     using Application.Activities.Commands;
 
-    using Domain;
+    using Domain.Repositories;
 
     using NSubstitute;
 
@@ -21,7 +19,8 @@ namespace UnitTests
     public class CreateCommandHandlerTest
     {
         private CreateCommandHandler _handler;
-        private IActivitiesRepository _activitiesRepository ;
+        private IActivitiesRepository _activitiesRepository;
+
         public CreateCommandHandlerTest()
         {
             _activitiesRepository = Substitute.For<IActivitiesRepository>();
@@ -33,9 +32,9 @@ namespace UnitTests
         {
             //Arrange
             var command = new CreateCommand();
-            
+
             //Assert
-            Assert.That( async () => await _handler.Handle(command, CancellationToken.None), Throws.Exception);
+            Assert.That(async () => await _handler.Handle(command, CancellationToken.None), Throws.Exception);
         }
     }
 }
