@@ -2,7 +2,7 @@
 // Author: Evgeniy Gusev
 // ---------------------------------------------------------------------------------------------------------------------------------------------------
 
-namespace Domain
+namespace Domain.Repositories
 {
     using System;
     using System.Collections.Generic;

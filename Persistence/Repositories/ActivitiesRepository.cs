@@ -2,13 +2,14 @@
 // Author: Evgeniy Gusev
 // ---------------------------------------------------------------------------------------------------------------------------------------------------
 
-namespace Persistence
+namespace Persistence.Repositories
 {
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
     using Domain;
+    using Domain.Repositories;
 
     using Microsoft.EntityFrameworkCore;
 
