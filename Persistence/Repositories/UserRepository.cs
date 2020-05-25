@@ -8,6 +8,8 @@ namespace Persistence.Repositories
     using System.Linq;
     using System.Threading.Tasks;
 
+    using Application;
+
     using Domain;
     using Domain.Repositories;
 
@@ -19,7 +21,7 @@ namespace Persistence.Repositories
         private readonly DataContext _context;
         private readonly UserManager<AppUser> _userManager;
 
-        public UserRepository(DataContext context, UserManager<AppUser> userManager)
+        public UserRepository(DataContext context, UserManager<AppUser> userManager, IUserAccessor userAccessor)
         {
             _context = context;
             _userManager = userManager;
@@ -41,6 +43,12 @@ namespace Persistence.Repositories
         {
             var result = await _userManager.CreateAsync(user, password);
             return result.Succeeded;
+        }
+
+        public async Task<AppUser> GetUserByName(string getCurrentUserName)
+        {
+            var result = await _userManager.FindByNameAsync(getCurrentUserName);
+            return result;
         }
     }
 }
