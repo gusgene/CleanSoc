@@ -70,7 +70,7 @@ namespace API
                             policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:3000");
                         });
                 });
-            services.AddMvc(
+            services.AddControllers(
                     opt =>
                     {
                         var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
@@ -105,6 +105,7 @@ namespace API
                 });
             
             services.AddScoped<IJwtGenerator, JwtGenerator>();
+            services.AddScoped<IUserAccessor, UserAccessor>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -15,5 +15,6 @@ namespace Domain.Repositories
         Task<bool> UserNameExistInDb(string userName);
 
         Task<bool> Add(AppUser user, string password);
+        Task<AppUser> GetUserByName(string getCurrentUserName);
     }
 }
