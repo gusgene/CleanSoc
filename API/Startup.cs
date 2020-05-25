@@ -70,7 +70,7 @@ namespace API
                             policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:3000");
                         });
                 });
-            services.AddMvc(
+            services.AddControllers(
                     opt =>
                     {
                         var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();

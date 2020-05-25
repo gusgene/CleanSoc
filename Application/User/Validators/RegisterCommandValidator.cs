@@ -13,10 +13,10 @@ namespace Application.User.Validators
         public RegisterCommandValidator()
         {
             RuleFor(x => x.DisplayName).NotEmpty();
-            RuleFor(x => x.Email).NotEmpty();
+            RuleFor(x => x.Email).NotEmpty().EmailAddress();
             RuleFor(x => x.UserName).NotEmpty();
-            RuleFor(x => x.Password).NotEmpty();
-            
+            RuleFor(x => x.Password).Password();
+
         }
     }
 }
