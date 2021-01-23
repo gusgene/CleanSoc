@@ -28,6 +28,6 @@ jobs:
     - name: Upload WebApp1 Build Artifact
       uses: actions/upload-artifact@v2
       with:
-       name: WebApp1
+       name: CleanSocAPI
        path: /home/runner/work/CleanSoc/CleanSoc/API/bin/Debug/netcoreapp3.1/publish/
        
